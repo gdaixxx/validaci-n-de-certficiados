@@ -1,5 +1,6 @@
     async function verificar() {
-      const codigo = document.getElementById("codigo").value;
+      const codigo = document.getElementById("codigo").value.trim().toUpperCase();
+
       const url = "https://script.google.com/macros/s/AKfycbyqajzFmEYgqWS5NJFnAmASM08JG-QFGzenysdjvLxEDfuWoW8ita3Nat6fjfom0zb3/exec?codigo=" + encodeURIComponent(codigo);
       const boton = document.getElementById("verificarBtn");
       boton.disabled = true;
