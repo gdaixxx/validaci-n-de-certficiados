@@ -10,24 +10,28 @@
       resultado.innerHTML = `<div class="spinner-border" role="status">
                           <span class="visually-hidden">Loading...</span>
                       </div>`;
-      
-      const res = await fetch(url);
-      const data = await res.json();
-      
-      if (data.valido) {
-        resultado.innerHTML = `
-        <hr>
-        <p>✅ Certificado encontrado</p><hr>  
-        <p><strong>Nombre:</strong> ${data.nombre}</p>
-          <p><strong>DNI:</strong> ${data.dni}</p>
-          <p><strong>Tipo de actividad:</strong> ${data.tipo}</p>
-        <p><strong>Actividad:</strong> ${data.actividad}</p>
-        <p><strong>En calidad de:</strong> ${data.calidad}</p>
-        <p><strong>Fecha de emisión:</strong> ${data.fecha}</p
-        `;
-      } else {
-        resultado.innerHTML = "<hr><p>❌ Código inválido o no encontrado.</p>";
-      }
+      try{
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        if (data.valido) {
+            resultado.innerHTML = `
+            <hr>
+            <p>✅ Certificado encontrado</p><hr>  
+            <p><strong>Nombre:</strong> ${data.nombre}</p>
+            <p><strong>DNI:</strong> ${data.dni}</p>
+            <p><strong>Tipo de actividad:</strong> ${data.tipo}</p>
+            <p><strong>Actividad:</strong> ${data.actividad}</p>
+            <p><strong>En calidad de:</strong> ${data.calidad}</p>
+            <p><strong>Fecha de emisión:</strong> ${data.fecha}</p
+            `;
+        } else {
+            resultado.innerHTML = "<hr><p>❌ Código inválido o no encontrado.</p>";
+        }
+    }catch(error){
+        resultado.innerHTML = "<p>⚠️ Error al conectar con el servidor. Intente nuevamente más tarde o contáctese por correo electrónico para evacuar sus dudas.</p>";
+        console.error("Error:", error);
+    } finally{
           boton.disabled = false;
-
     }
+}
